@@ -131,7 +131,8 @@ class TestBenchmark(unittest.TestCase):
     def test_benchmark_chipseq_postaln(self):
         print("testing chipseq")
         input_sizes = {'chip.tas': [2000000000, 3000000000],
-                       'chip.ctl_tas': [3000000000, 2000000000]}
+                       'chip.ctl_tas': [3000000000, 2000000000],
+                       'chip.bam2ta_no_filt_R1.ta': [5000000000, 6000000000]}
         res = B.benchmark('encode-chipseq-postaln',
                           {'input_size_in_bytes': input_sizes,
                            'parameters': {'chip.spp_cpu': 4}})
@@ -142,7 +143,8 @@ class TestBenchmark(unittest.TestCase):
     def test_benchmark_chipseq_postaln2(self):
         print("testing chipseq")
         input_sizes = {'chip.tas': [MB2B(115.37), MB2B(115.37)],
-                       'chip.ctl_tas': [MB2B(220.56), MB2B(220.56)]}
+                       'chip.ctl_tas': [MB2B(220.56), MB2B(220.56)],
+                       'chip.bam2ta_no_filt_R1.ta': [MB2B(140.59), MB2B(140.59)]}
         res = B.benchmark('encode-chipseq-postaln',
                           {'input_size_in_bytes': input_sizes,
                            'parameters': {'chip.spp_cpu': 4, 'chip.pipeline_type': 'tf'}})
