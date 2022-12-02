@@ -1,8 +1,10 @@
 language: python
 sudo: false
-python: 2.7
+python: 3.6
 os: linux
+before_install:
+  - pip install poetry
 install:
-  - python setup.py install
+  - poetry install
 script:
   - python tests/test.py
