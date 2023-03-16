@@ -100,7 +100,7 @@ def get_optimal_instance_type(cpu=1, mem_in_gb=0.5,
             row_cost = float(row_cost_str.replace(' hourly', '')
                                          .replace('$', ''))
             row_cpu = int(re.sub(" vCPUs.*", '', row['vCPUs']))
-            row_mem = float(row['Memory'].replace(' GiB', ''))
+            row_mem = float(row['Instance Memory'].replace(' GiB', ''))
             row_ebs_opt_surcharge = row['EBS Optimized surcharge']
             if row_ebs_opt_surcharge == 'unavailable':
                 row_ebs_opt = False
@@ -139,7 +139,7 @@ def instance_list(instance_info_file=get_aws_ec2_info_file(),
             row_cost = float(row_cost_str.replace(' hourly', '')
                                          .replace('$', ''))
             row_cpu = int(re.sub(" vCPUs.*", '', row['vCPUs']))
-            row_mem = float(row['Memory'].replace(' GiB', ''))
+            row_mem = float(row['Instance Memory'].replace(' GiB', ''))
             row_ebs_opt_surcharge = row['EBS Optimized surcharge']
             if row_ebs_opt_surcharge == 'unavailable':
                 row_ebs_opt = False
