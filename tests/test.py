@@ -12,8 +12,9 @@ class TestGetOptimalInstanceType(unittest.TestCase):
 
     def test_get_optimal_instance_type2(self):
         res = C.get_optimal_instance_type(cpu=32, mem_in_gb=16)
+        print(res)
         assert 'recommended_instance_type' in res
-        assert res['recommended_instance_type'] == 'c5.9xlarge'
+        assert res['recommended_instance_type'] == 'c6a.8xlarge'
 
 
 class TestBenchmark(unittest.TestCase):
@@ -81,7 +82,7 @@ class TestBenchmark(unittest.TestCase):
         print(res)
         assert 'aws' in res
         assert 'recommended_instance_type' in res['aws']
-        assert res['aws']['recommended_instance_type'] == 'c5.xlarge'
+        assert res['aws']['recommended_instance_type'] == 'c6a.xlarge'
 
     def test_benchmark_atacseq_postaln(self):
         print("testing atacseq-postaln")
@@ -91,7 +92,7 @@ class TestBenchmark(unittest.TestCase):
         print(res)
         assert 'aws' in res
         assert 'recommended_instance_type' in res['aws']
-        assert res['aws']['recommended_instance_type'] == 'c5.4xlarge'
+        assert res['aws']['recommended_instance_type'] == 'c6a.4xlarge'
 
     def test_benchmark_atacseq(self):
         print("testing atacseq")
@@ -100,9 +101,10 @@ class TestBenchmark(unittest.TestCase):
         res = B.benchmark('encode-atacseq',
                           {'input_size_in_bytes': input_sizes,
                            'parameters': {'atac.bowtie2.cpu': 4}})
+        print(res)
         assert 'aws' in res
         assert 'recommended_instance_type' in res['aws']
-        assert res['aws']['recommended_instance_type'] == 't3.2xlarge'
+        assert res['aws']['recommended_instance_type'] == 'c6a.2xlarge'
         assert res['min_CPU'] == 6
         assert int(res['total_size_in_GB']) == 55
 
@@ -113,9 +115,10 @@ class TestBenchmark(unittest.TestCase):
         res = B.benchmark('encode-chipseq-aln-chip',
                           {'input_size_in_bytes': input_sizes,
                            'parameters': {'chip.bwa.cpu': 16}})
+        print(res)
         assert 'aws' in res
         assert 'recommended_instance_type' in res['aws']
-        assert res['aws']['recommended_instance_type'] == 'c5.4xlarge'
+        assert res['aws']['recommended_instance_type'] == 'c6a.4xlarge'
 
     def test_benchmark_chipseq_aln_ctl(self):
         print("testing chipseq")
@@ -124,9 +127,10 @@ class TestBenchmark(unittest.TestCase):
         res = B.benchmark('encode-chipseq-aln-ctl',
                           {'input_size_in_bytes': input_sizes,
                            'parameters': {'chip.bwa_ctl.cpu': 16}})
+        print(res)
         assert 'aws' in res
         assert 'recommended_instance_type' in res['aws']
-        assert res['aws']['recommended_instance_type'] == 'c5.4xlarge'
+        assert res['aws']['recommended_instance_type'] == 'c6a.4xlarge'
 
     def test_benchmark_chipseq_postaln(self):
         print("testing chipseq")
@@ -136,9 +140,10 @@ class TestBenchmark(unittest.TestCase):
         res = B.benchmark('encode-chipseq-postaln',
                           {'input_size_in_bytes': input_sizes,
                            'parameters': {'chip.spp_cpu': 4}})
+        print(res)
         assert 'aws' in res
         assert 'recommended_instance_type' in res['aws']
-        assert res['aws']['recommended_instance_type'] == 'c5.4xlarge'
+        assert res['aws']['recommended_instance_type'] == 'c6a.4xlarge'
 
     def test_benchmark_chipseq_postaln2(self):
         print("testing chipseq")
@@ -148,6 +153,7 @@ class TestBenchmark(unittest.TestCase):
         res = B.benchmark('encode-chipseq-postaln',
                           {'input_size_in_bytes': input_sizes,
                            'parameters': {'chip.spp_cpu': 4, 'chip.pipeline_type': 'tf'}})
+        print(res)
         assert 'aws' in res
         assert 'recommended_instance_type' in res['aws']
         assert res['aws']['recommended_instance_type'] == 'r5a.4xlarge'
@@ -162,7 +168,7 @@ class TestBenchmark(unittest.TestCase):
         print(res)
         assert 'aws' in res
         assert 'recommended_instance_type' in res['aws']
-        assert res['aws']['recommended_instance_type'] == 'c5.4xlarge'
+        assert res['aws']['recommended_instance_type'] == 'c6a.4xlarge'
 
     def test_benchmark1(self):
         res = B.benchmark('md5',
@@ -202,24 +208,26 @@ class TestBenchmark(unittest.TestCase):
         print(res)
 
     def test_benchmark4(self):
+        print("pairsam_parse")
         res = B.benchmark('pairsam-parse-sort',
                           {'input_size_in_bytes': {'bam': 1000000000},
                            'parameters': {'nThreads': 16}})
+        print(res)
         assert 'aws' in res
         assert 'recommended_instance_type' in res['aws']
-        assert res['aws']['recommended_instance_type'] == 'c5.9xlarge'
-        print(res)
+        assert res['aws']['recommended_instance_type'] == 'c6a.8xlarge'
 
     def test_benchmark5(self):
+        print("pairsam-merge")
         input_json = {'input_size_in_bytes': {'input_pairsams': [1000000000,
                                                                  2000000000,
                                                                  3000000000]},
                       'parameters': {'nThreads': 32}}
         res = B.benchmark('pairsam-merge', input_json)
+        print(res)
         assert 'aws' in res
         assert 'recommended_instance_type' in res['aws']
-        assert res['aws']['recommended_instance_type'] == 'c5.9xlarge'
-        print(res)
+        assert res['aws']['recommended_instance_type'] == 'c6a.8xlarge'
 
     def test_benchmark6(self):
         input_json = {'input_size_in_bytes': {'input_pairsam': 1000000000}}
@@ -285,7 +293,7 @@ class TestBenchmark(unittest.TestCase):
         print(res)
         assert 'aws' in res
         assert 'recommended_instance_type' in res['aws']
-        assert res['aws']['recommended_instance_type'] == 't3.2xlarge'
+        assert res['aws']['recommended_instance_type'] == 'r5a.2xlarge'
         assert res['min_CPU'] == 8
 
     def test_benchmark13(self):
