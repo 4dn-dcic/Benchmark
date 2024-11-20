@@ -532,7 +532,7 @@ def hi_c_processing_bam(input_json):
     # input and output are copied once
     total_size = (bamsize + other_inputsize + outsize) * 2 + tmp_pairsamsize
     safe_total_size = total_size * 2
-    mem = 48000  # required for sorting buffer
+    mem = 8000  # very rough number
 
     r = BenchmarkResult(size=safe_total_size, mem=mem, cpu=nthreads)
 
