@@ -293,7 +293,7 @@ class TestBenchmark(unittest.TestCase):
         print(res)
         assert 'aws' in res
         assert 'recommended_instance_type' in res['aws']
-        assert res['aws']['recommended_instance_type'] == 'r5a.2xlarge'
+        assert res['aws']['recommended_instance_type'] == 'c6a.2xlarge'
         assert res['min_CPU'] == 8
 
     def test_benchmark13(self):
