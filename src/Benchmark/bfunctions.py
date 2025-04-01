@@ -4,7 +4,19 @@ from Benchmark.classes import BenchmarkResult
 
 def encode_rnaseq_stranded(input_json):
     assert 'input_size_in_bytes' in input_json
-    r = BenchmarkResult(size=300,
+    insz = input_json['input_size_in_bytes']
+    input_sizes = 0
+    for file,file_size in insz.items():
+        input_sizes += file_size
+    # The starIndex file is the main input size difference, meaning
+    # disk requirements vary by organism. 24 GB+ is usually mouse and
+    # < 24 GB is usually human. As human sets approach 24 GB, the disk
+    # requirement is less predictable, so disk may need to manually set.
+    if B2GB(input_sizes) < 24:
+        total_size_in_gb = B2GB((input_sizes) * 7) + 21
+    else:
+        total_size_in_gb = B2GB((input_sizes) * 10.1) - 150
+    r = BenchmarkResult(size=total_size_in_gb,
                         mem=GB2MB(64),
                         cpu=16,
                         exclude_t=True)
@@ -13,7 +25,21 @@ def encode_rnaseq_stranded(input_json):
 
 def encode_rnaseq_unstranded(input_json):
     assert 'input_size_in_bytes' in input_json
-    r = BenchmarkResult(size=300,
+    insz = input_json['input_size_in_bytes']
+    assert 'rna.align_index' in insz
+    input_sizes = 0
+    for file,file_size in insz.items():
+        # As in stranded case, align index is the main contributor,
+        # but now total file size cannot determine organism.
+        # Instead, use the size of the align index itself
+        if file == 'rna.align_index':
+            mouse = B2GB(file_size) > 13
+        input_sizes += file_size
+    if mouse:
+        total_size_in_gb = B2GB((input_sizes) * 8) - 105
+    else:
+        total_size_in_gb = B2GB((input_sizes) * 5.5) + 35
+    r = BenchmarkResult(size=total_size_in_gb,
                         mem=GB2MB(64),
                         cpu=16,
                         exclude_t=True)
