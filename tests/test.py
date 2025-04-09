@@ -21,23 +21,27 @@ class TestBenchmark(unittest.TestCase):
     def test_encode_rnaseq_unstranded(self):
         print("rnaseq_unstranded")
         input_json = {'input_size_in_bytes': {'rna.fastqs_R1': GB2B(10),
-                                              'rna.align_index': GB2B(3)}}
+                                              'rna.align_index': GB2B(10)}}
         res = B.benchmark('encode-rnaseq-unstranded', input_json)
         print(res)
         assert 'aws' in res
         assert 'recommended_instance_type' in res['aws']
         assert res['aws']['recommended_instance_type'] == 'm5a.4xlarge'
+        assert 'total_size_in_GB' in res
+        assert int(res['total_size_in_GB']) == 145
 
 
     def test_encode_rnaseq_stranded(self):
         print("rnaseq_stranded")
         input_json = {'input_size_in_bytes': {'rna.fastqs_R1': GB2B(10),
-                                              'rna.align_index': GB2B(3)}}
+                                              'rna.align_index': GB2B(10)}}
         res = B.benchmark('encode-rnaseq-stranded', input_json)
         print(res)
         assert 'aws' in res
         assert 'recommended_instance_type' in res['aws']
         assert res['aws']['recommended_instance_type'] == 'm5a.4xlarge'
+        assert 'total_size_in_GB' in res
+        assert int(res['total_size_in_GB']) == 161
 
 
     def test_repliseq(self):
