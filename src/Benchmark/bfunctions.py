@@ -7,7 +7,10 @@ def encode_rnaseq_stranded(input_json):
     insz = input_json['input_size_in_bytes']
     input_sizes = 0
     for file,file_size in insz.items():
-        input_sizes += file_size
+        if type(file_size) == list:
+            input_sizes += sum(file_size)
+        else:
+            input_sizes += file_size
     # The starIndex file is the main input size difference, meaning
     # disk requirements vary by organism. 24 GB+ is usually mouse and
     # < 24 GB is usually human. As human sets approach 24 GB, the disk
@@ -34,7 +37,10 @@ def encode_rnaseq_unstranded(input_json):
         # Instead, use the size of the align index itself
         if file == 'rna.align_index':
             mouse = B2GB(file_size) > 13
-        input_sizes += file_size
+        if type(file_size) == list:
+            input_sizes += sum(file_size)
+        else:
+            input_sizes += file_size
     if mouse:
         total_size_in_gb = B2GB((input_sizes) * 8) - 105
     else:

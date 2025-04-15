@@ -20,7 +20,7 @@ class TestGetOptimalInstanceType(unittest.TestCase):
 class TestBenchmark(unittest.TestCase):
     def test_encode_rnaseq_unstranded(self):
         print("rnaseq_unstranded")
-        input_json = {'input_size_in_bytes': {'rna.fastqs_R1': GB2B(10),
+        input_json = {'input_size_in_bytes': {'rna.fastqs_R1': [GB2B(5), GB2B(5)],
                                               'rna.align_index': GB2B(10)}}
         res = B.benchmark('encode-rnaseq-unstranded', input_json)
         print(res)
