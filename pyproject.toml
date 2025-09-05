@@ -4,13 +4,13 @@
 
 [tool.poetry]
 name = "Benchmark-4dn"
-version = "0.5.27"
+version = "0.5.28"
 description = """Benchmark functions that returns total space, mem, cpu given \
     input size and parameters for the CWL workflows"""
-authors = ["Soo Lee <duplexa@gmail.com>"]
+authors = ["Alexander Veit <alexander_veit@hms.harvard.edu>", "Soo Lee <duplexa@gmail.com>"]
 license = "MIT"
 readme = 'README.md'
-repository = "https://github.com/SooLee/Benchmark/"
+repository = "https://github.com/4dn-dcic/Benchmark"
 keywords = ['benchmark', 'cwl', 'common workflow language',
           'docker', 'tibanna', 'bioinformatics', '4dn']
 classifiers = [
